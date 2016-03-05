@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <string.h>
 
 using namespace std;
 
@@ -19,6 +20,21 @@ bool i2c_write_byte(uint8_t reg, uint8_t data) {
         cout << "Write to device failed\n";
         return false;
     }
+    return true;
+}
+
+bool i2c_write_bytes(uint8_t reg, const char* data) {
+    int len = sizeof(reg) + strlen(data);
+    void *buf = calloc(1, len);
+    memcpy(buf, &reg, 1);
+    strcat((char*)buf, data);
+    printf("%s\n", buf);
+    if(write(i2c_bus_handle, buf, len) != len) {
+        cout << "Write to device failed\n";
+        free(buf);
+        return false;
+    }
+    free(buf);
     return true;
 }
 
@@ -58,8 +74,8 @@ bool init_display() {
     i2c_write_byte(0x80, 0x00);
     i2c_write_byte(0x80, 0xda);
     i2c_write_byte(0x80, 0x10);
-    i2c_write_byte(0x80, 0x81);
-    i2c_write_byte(0x80, 0x50);
+    i2c_write_byte(0x80, 0x81); // set contrast
+    i2c_write_byte(0x80, 0x50); // contrast level
     i2c_write_byte(0x80, 0xdb);
     i2c_write_byte(0x80, 0x30);
     i2c_write_byte(0x80, 0xdc);
@@ -78,6 +94,6 @@ bool init_display() {
 int main() {
     configure_display("/dev/i2c-1", 0x3c);
     init_display();
-    i2c_write_byte(0x40, '?');
+    i2c_write_bytes(0x40, "Heisann hoppsan!");
     return 0;
 }
