@@ -40,6 +40,16 @@ bool i2c_write_bytes(uint8_t reg, const char* data) {
     return true;
 }
 
+bool set_cursor_position(uint8_t col, uint8_t row) {
+    int line_offsets[] = {
+            0x00,  // start of line 1
+            0x20,
+            0x40,
+            0x60   // start of line 4
+    };
+    return i2c_write_byte(CMD, 0x80 | (col + line_offsets[row]));
+}
+
 bool configure_display(const char* bus, uint8_t address) {
     i2c_bus = bus;
     oled_address = address;
@@ -62,20 +72,22 @@ bool init_display() {
     i2c_write_byte(CMD, 0x71);
     i2c_write_byte(CMD, 0x5c);
     i2c_write_byte(CMD, 0x28);
-    i2c_write_byte(CMD, 0x08);
+    i2c_write_byte(CMD, 0x08); // display off
     i2c_write_byte(CMD, 0x2a);
     i2c_write_byte(CMD, 0x79);
     i2c_write_byte(CMD, 0xd5);
     i2c_write_byte(CMD, 0x70);
     i2c_write_byte(CMD, 0x78);
-    i2c_write_byte(CMD, 0x08);
+    i2c_write_byte(CMD, 0x09);
     i2c_write_byte(CMD, 0x06);
+    i2c_write_byte(CMD, 0x72);
+    i2c_write_byte(DATA, 0x00);
     i2c_write_byte(CMD, 0x2a);
     i2c_write_byte(CMD, 0x79);
-    i2c_write_byte(CMD, 0x72);
-    i2c_write_byte(CMD, 0x00);
     i2c_write_byte(CMD, 0xda);
     i2c_write_byte(CMD, 0x10);
+    i2c_write_byte(CMD, 0xdc);
+    i2c_write_byte(CMD, 0x00);
     i2c_write_byte(CMD, 0x81); // set contrast
     i2c_write_byte(CMD, 0x50); // contrast level
     i2c_write_byte(CMD, 0xdb);
@@ -86,7 +98,6 @@ bool init_display() {
     i2c_write_byte(CMD, 0x28);
     i2c_write_byte(CMD, 0x2a);
     i2c_write_byte(CMD, 0x06);
-    i2c_write_byte(CMD, 0x08);
     i2c_write_byte(CMD, 0x28);
     i2c_write_byte(CMD, 0x01);
     i2c_write_byte(CMD, 0x80);
@@ -96,6 +107,7 @@ bool init_display() {
 int main() {
     configure_display("/dev/i2c-1", 0x3c);
     init_display();
+    set_cursor_position(4, 2);
     i2c_write_bytes(DATA, "Heisann hoppsan!");
     return 0;
 }
