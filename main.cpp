@@ -5,6 +5,9 @@
 #include <unistd.h>
 #include <string.h>
 
+#define CMD 0x80
+#define DATA 0x40
+
 using namespace std;
 
 const char* i2c_bus;
@@ -28,7 +31,6 @@ bool i2c_write_bytes(uint8_t reg, const char* data) {
     void *buf = calloc(1, len);
     memcpy(buf, &reg, 1);
     strcat((char*)buf, data);
-    printf("%s\n", buf);
     if(write(i2c_bus_handle, buf, len) != len) {
         cout << "Write to device failed\n";
         free(buf);
@@ -56,44 +58,44 @@ bool configure_display(const char* bus, uint8_t address) {
 }
 
 bool init_display() {
-    i2c_write_byte(0x80, 0x2a); // **** Set "RE"=1<--->00101010B
-    i2c_write_byte(0x80, 0x71);
-    i2c_write_byte(0x80, 0x5c);
-    i2c_write_byte(0x80, 0x28);
-    i2c_write_byte(0x80, 0x08);
-    i2c_write_byte(0x80, 0x2a);
-    i2c_write_byte(0x80, 0x79);
-    i2c_write_byte(0x80, 0xd5);
-    i2c_write_byte(0x80, 0x70);
-    i2c_write_byte(0x80, 0x78);
-    i2c_write_byte(0x80, 0x08);
-    i2c_write_byte(0x80, 0x06);
-    i2c_write_byte(0x80, 0x2a);
-    i2c_write_byte(0x80, 0x79);
-    i2c_write_byte(0x80, 0x72);
-    i2c_write_byte(0x80, 0x00);
-    i2c_write_byte(0x80, 0xda);
-    i2c_write_byte(0x80, 0x10);
-    i2c_write_byte(0x80, 0x81); // set contrast
-    i2c_write_byte(0x80, 0x50); // contrast level
-    i2c_write_byte(0x80, 0xdb);
-    i2c_write_byte(0x80, 0x30);
-    i2c_write_byte(0x80, 0xdc);
-    i2c_write_byte(0x80, 0x03);
-    i2c_write_byte(0x80, 0x78);
-    i2c_write_byte(0x80, 0x28);
-    i2c_write_byte(0x80, 0x2a);
-    i2c_write_byte(0x80, 0x06);
-    i2c_write_byte(0x80, 0x08);
-    i2c_write_byte(0x80, 0x28);
-    i2c_write_byte(0x80, 0x01);
-    i2c_write_byte(0x80, 0x80);
-    i2c_write_byte(0x80, 0x0c);
+    i2c_write_byte(CMD, 0x2a); // **** Set "RE"=1<--->00101010B
+    i2c_write_byte(CMD, 0x71);
+    i2c_write_byte(CMD, 0x5c);
+    i2c_write_byte(CMD, 0x28);
+    i2c_write_byte(CMD, 0x08);
+    i2c_write_byte(CMD, 0x2a);
+    i2c_write_byte(CMD, 0x79);
+    i2c_write_byte(CMD, 0xd5);
+    i2c_write_byte(CMD, 0x70);
+    i2c_write_byte(CMD, 0x78);
+    i2c_write_byte(CMD, 0x08);
+    i2c_write_byte(CMD, 0x06);
+    i2c_write_byte(CMD, 0x2a);
+    i2c_write_byte(CMD, 0x79);
+    i2c_write_byte(CMD, 0x72);
+    i2c_write_byte(CMD, 0x00);
+    i2c_write_byte(CMD, 0xda);
+    i2c_write_byte(CMD, 0x10);
+    i2c_write_byte(CMD, 0x81); // set contrast
+    i2c_write_byte(CMD, 0x50); // contrast level
+    i2c_write_byte(CMD, 0xdb);
+    i2c_write_byte(CMD, 0x30);
+    i2c_write_byte(CMD, 0xdc);
+    i2c_write_byte(CMD, 0x03);
+    i2c_write_byte(CMD, 0x78);
+    i2c_write_byte(CMD, 0x28);
+    i2c_write_byte(CMD, 0x2a);
+    i2c_write_byte(CMD, 0x06);
+    i2c_write_byte(CMD, 0x08);
+    i2c_write_byte(CMD, 0x28);
+    i2c_write_byte(CMD, 0x01);
+    i2c_write_byte(CMD, 0x80);
+    i2c_write_byte(CMD, 0x0c);
 }
 
 int main() {
     configure_display("/dev/i2c-1", 0x3c);
     init_display();
-    i2c_write_bytes(0x40, "Heisann hoppsan!");
+    i2c_write_bytes(DATA, "Heisann hoppsan!");
     return 0;
 }
