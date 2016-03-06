@@ -40,6 +40,11 @@ class OLED
     self.init(i2c_bus, i2c_address)
   end
 
+  def clear_row(row)
+    set_cursor(0, row)
+    write(" "*20)
+  end
+
   def write(str)
     iso_string = str.encode('iso-8859-1')
     encoded_string = []
