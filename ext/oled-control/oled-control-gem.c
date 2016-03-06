@@ -39,10 +39,18 @@ static VALUE init(VALUE self, VALUE i2cbus, VALUE i2caddress) {
     return Qtrue;
 }
 
+static VALUE clear(VALUE self) {
+    if(!clear_display())
+        rb_raise(rb_eRuntimeError, "failure clearing display");
+
+    return Qtrue;
+}
+
 void Init_oled_control(void) {
     VALUE klass = rb_define_class("OLED", rb_cObject);
 
     rb_define_method(klass, "set_cursor", set_cursor, 2);
+    rb_define_method(klass, "clear", clear, 0);
     rb_define_protected_method(klass, "write_string", write_string, 1);
     rb_define_protected_method(klass, "init", init, 2);
 }
