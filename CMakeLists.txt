@@ -3,5 +3,5 @@ project(oled_control)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES ext/oled-control/oled-control.c ext/oled-control/oled-control.h ext/oled-control/main.cpp ext/oled-control/oled-control-gem.c)
 add_executable(oled_control ${SOURCE_FILES})
