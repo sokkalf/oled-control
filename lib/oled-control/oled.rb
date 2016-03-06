@@ -31,11 +31,15 @@ class OLED
         0xA4 => 0x24, # ¤
         0x24 => 0xA2, # $
         0xA3 => 0xA1, # £
+        0xFA => 0xEA, # ú
+        0xDA => 0xE5, # Ú
         # unsupported characters are mapped to closest match
         0xEF => 0x69, # ï -> i
         0xCF => 0x49, # Ï -> I
         0xEB => 0x65, # ë -> e
         0xCB => 0x45, # Ë -> E
+        0xE3 => 0x61, # ã -> a
+        0xC3 => 0x41, # Ã -> A
     }
     self.init(i2c_bus, i2c_address)
   end
