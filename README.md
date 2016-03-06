@@ -16,6 +16,7 @@ oled.clear # clear display
 oled.set_cursor(0, 1) # set cursor position to column 0, row 1
 oled.write('Hello, world!')
 ```
+![hello world](../master/doc/helloworld.jpg)
 
 #### Configure I2C bus and address
 The library defaults to I2C-bus `/dev/i2c-1` and I2C device address `0x3C`
