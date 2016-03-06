@@ -2,7 +2,6 @@
 // Created by sokkalf on 3/6/16.
 //
 #include "oled-control.h"
-#include <iostream>
 
 void test_display() {
     set_cursor_position(2, 1);
