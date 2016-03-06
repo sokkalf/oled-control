@@ -13,7 +13,7 @@ require 'oled-control/oled'
 
 oled = OLED.new
 oled.clear # clear display
-oled.set_cursor(0, 1) # set cursor position to column 0, row 1
+oled.set_cursor(0, 0) # set cursor position to column 0, row 0
 oled.write('Hello, world!')
 ```
 ![hello world](../master/doc/helloworld.jpg)
