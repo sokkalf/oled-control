@@ -2,6 +2,8 @@
 // Created by sokkalf on 3/6/16.
 //
 #include "oled-control.h"
+#include <iostream>
+
 void test_display() {
     set_cursor_position(2, 1);
     i2c_write_bytes(DATA, "In A.D. 2101");
