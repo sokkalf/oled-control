@@ -33,7 +33,7 @@ int i2c_write_bytes(uint8_t reg, const char* data) {
 }
 
 int set_cursor_position(uint8_t col, uint8_t row) {
-    if((col > DISPLAY_MAX_COLS) || (row > DISPLAY_MAX_ROWS))
+    if((col >= DISPLAY_MAX_COLS) || (row >= DISPLAY_MAX_ROWS))
         return FALSE;
 
     int line_offsets[] = {
