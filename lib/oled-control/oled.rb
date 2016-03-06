@@ -50,6 +50,9 @@ class OLED
   end
 
   def write(str)
+    unless str.is_a?(String)
+      str = str.to_s
+    end
     iso_string = str.encode('iso-8859-1')
     encoded_string = []
     iso_string.each_byte{|b| encoded_string << (@character_conversion[b.ord].nil? ? b.ord : @character_conversion[b.ord]) }
