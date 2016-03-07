@@ -17,8 +17,7 @@ static VALUE set_cursor(VALUE self, VALUE col, VALUE row) {
 }
 
 static VALUE write_string(VALUE self, VALUE str) {
-    VALUE the_string = StringValue(str);
-    const char *s = RSTRING_PTR(the_string);
+    const char *s = RSTRING_PTR(str);
     if(!i2c_write_bytes(DATA, s))
         rb_raise(rb_eRuntimeError, "unable to write string to display");
 
@@ -26,8 +25,7 @@ static VALUE write_string(VALUE self, VALUE str) {
 }
 
 static VALUE init(VALUE self, VALUE i2cbus, VALUE i2caddress) {
-    VALUE the_string = StringValue(i2cbus);
-    const char *bus = RSTRING_PTR(the_string);
+    const char *bus = RSTRING_PTR(i2cbus);
     uint8_t a = NUM2UINT(i2caddress);
 
     if(!configure_display(bus, a))
