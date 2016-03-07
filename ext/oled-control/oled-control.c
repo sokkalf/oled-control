@@ -19,10 +19,12 @@ int i2c_write_byte(uint8_t reg, uint8_t data) {
 }
 
 int i2c_write_bytes(uint8_t reg, const char* data) {
-    int len = sizeof(reg) + strlen(data);
-    void *buf = calloc(1, len);
-    memcpy(buf, &reg, 1);
-    strcat((char*)buf, data);
+    int len = sizeof(uint8_t) + strlen(data);
+    // allocate room for reg + data + trailing null character:
+    void *buf = calloc(1, len+1);
+    memcpy(&buf[0], &reg, 1);
+    memcpy(&buf[1], data, strlen(data));
+    // write the reg + data, minus the trailing null character
     if(write(i2c_bus_handle, buf, len) != len) {
         fprintf(stderr, "Write to device failed\n");
         free(buf);
