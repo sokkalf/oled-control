@@ -51,6 +51,15 @@ int clear_display() {
     return i2c_write_byte(CMD, 0x01);
 }
 
+int set_contrast_level(uint8_t level) {
+    return i2c_write_byte(CMD, 0x2A) &&
+           i2c_write_byte(CMD, 0x79) &&
+           i2c_write_byte(CMD, 0x81) &&
+           i2c_write_byte(CMD, level) &&
+           i2c_write_byte(CMD, 0x78) &&
+           i2c_write_byte(CMD, 0x28);
+}
+
 int configure_display(const char* bus, uint8_t address) {
     i2c_bus = bus;
     oled_address = address;
