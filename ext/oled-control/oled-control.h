@@ -27,6 +27,8 @@ int i2c_write_bytes(uint8_t reg, const char* data);
 int set_cursor_position(uint8_t col, uint8_t row);
 int clear_display();
 int set_contrast_level(uint8_t level);
+int display_enable();
+int display_disable();
 int configure_display(const char* bus, uint8_t address);
 int init_display();
 

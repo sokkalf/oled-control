@@ -60,6 +60,14 @@ int set_contrast_level(uint8_t level) {
            i2c_write_byte(CMD, 0x28);
 }
 
+int display_enable() {
+    return i2c_write_byte(CMD, 0x0C);
+}
+
+int display_disable() {
+    return i2c_write_byte(CMD, 0x08);
+}
+
 int configure_display(const char* bus, uint8_t address) {
     i2c_bus = bus;
     oled_address = address;
@@ -110,7 +118,7 @@ int init_display() {
     i2c_write_byte(CMD, 0x28) &&
     i2c_write_byte(CMD, 0x01) &&
     i2c_write_byte(CMD, 0x80) &&
-    i2c_write_byte(CMD, 0x0c) &&
+    display_enable() &&
     !usleep(1000); // spec says to hold on for 0.1 secs before data
     // usleep returns 0, ergo FALSE, on success, so invert it
 }

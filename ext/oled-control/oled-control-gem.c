@@ -44,6 +44,22 @@ static VALUE clear(VALUE self) {
     return Qtrue;
 }
 
+static VALUE enable(VALUE self) {
+    if(!display_enable()) {
+        rb_raise(rb_eRuntimeError, "error enabling display");
+    }
+
+    return Qtrue;
+}
+
+static VALUE disable(VALUE self) {
+    if(!display_disable()) {
+        rb_raise(rb_eRuntimeError, "error disabling display");
+    }
+
+    return Qtrue;
+}
+
 static VALUE set_contrast(VALUE self, VALUE level) {
     uint8_t val = NUM2UINT(level);
     if(!set_contrast_level(val)) {
@@ -58,6 +74,8 @@ void Init_oled_control(void) {
     rb_define_method(klass, "set_cursor", set_cursor, 2);
     rb_define_method(klass, "clear", clear, 0);
     rb_define_method(klass, "set_contrast", set_contrast, 1);
+    rb_define_method(klass, "enable", enable, 0);
+    rb_define_method(klass, "disable", disable, 0);
     rb_define_protected_method(klass, "write_string", write_string, 1);
     rb_define_protected_method(klass, "init", init, 2);
 }
