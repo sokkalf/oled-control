@@ -1,2 +1,5 @@
 * More characters for charset conversion
+* User selectable whether to do charset conversion or not
+* Select between character set ROM A, ROM B and ROM C on the SSD1311 controller
 * Get scroll working
+* Inverse video
