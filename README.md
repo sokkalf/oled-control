@@ -1,11 +1,12 @@
 # oled-control
+[![Gem Version](https://badge.fury.io/rb/oled-control.svg)](https://badge.fury.io/rb/oled-control)
+
 Ruby Gem for SSD1311 based 20x4 OLED display from [wide.hk](http://www.wide.hk).
 Should theoretically work for 20x2 and 16x2 as well, with some modifications.
 
 ## Usage
 Add to your Gemfile:
-`gem 'oled-control', :git => 'https://github.com/sokkalf/oled-control.git'`
-and `bundle install`
+`gem 'oled-control'`, and `bundle install`
 
 #### Example code
 ```ruby
