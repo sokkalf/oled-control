@@ -32,6 +32,6 @@ int display_disable();
 int send_cmd(uint8_t cmd);
 int send_raw_cmd(uint8_t cmd);
 int configure_display(const char* bus, uint8_t address);
-int init_display();
+int init_display(uint8_t orientation);
 
 #endif //OLED_CONTROL_OLED_CONTROL_H

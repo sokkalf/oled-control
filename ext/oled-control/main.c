@@ -68,7 +68,7 @@ void test_display() {
 
 int main() {
     configure_display("/dev/i2c-1", 0x3c);
-    init_display();
+    init_display(0x06);
     test_display();
     return 0;
 }

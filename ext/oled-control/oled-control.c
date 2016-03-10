@@ -91,7 +91,7 @@ int configure_display(const char* bus, uint8_t address) {
     return configured;
 }
 
-int init_display() {
+int init_display(uint8_t orientation) {
     if(!configured)
         return FALSE;
 
@@ -124,7 +124,7 @@ int init_display() {
     i2c_write_byte(CMD, 0x78) &&
     i2c_write_byte(CMD, 0x28) &&
     i2c_write_byte(CMD, 0x2a) &&
-    i2c_write_byte(CMD, 0x06) && // entry mode (move cursor right, don’t shift display)
+    i2c_write_byte(CMD, orientation) &&
     i2c_write_byte(CMD, 0x28) &&
     i2c_write_byte(CMD, 0x01) &&
     i2c_write_byte(CMD, 0x80) &&

@@ -24,14 +24,15 @@ static VALUE write_string(VALUE self, VALUE str) {
     return Qtrue;
 }
 
-static VALUE init(VALUE self, VALUE i2cbus, VALUE i2caddress) {
+static VALUE init(VALUE self, VALUE i2cbus, VALUE i2caddress, VALUE orientation) {
     const char *bus = RSTRING_PTR(i2cbus);
     uint8_t a = NUM2UINT(i2caddress);
+    uint8_t o = NUM2UINT(orientation);
 
     if(!configure_display(bus, a))
         rb_raise(rb_eRuntimeError, "can't detect display! Bus/address wrong?");
 
-    if(!init_display())
+    if(!init_display(o))
         rb_raise(rb_eRuntimeError, "failure initializing display");
 
     return Qtrue;
@@ -97,5 +98,5 @@ void Init_oled_control(void) {
     rb_define_protected_method(klass, "send_command", send_command, 1);
     rb_define_protected_method(klass, "send_raw_command", send_raw_command, 1);
     rb_define_protected_method(klass, "write_string", write_string, 1);
-    rb_define_protected_method(klass, "init", init, 2);
+    rb_define_protected_method(klass, "init", init, 3);
 }

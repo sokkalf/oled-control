@@ -46,7 +46,12 @@ class OLED
         0xE3 => 0x61, # ã -> a
         0xC3 => 0x41, # Ã -> A
     }
-    self.init(i2c_bus, i2c_address)
+    orientation = if @flipped
+                    FLIPPED
+                  else
+                    NORMAL
+                  end
+    self.init(i2c_bus, i2c_address, orientation)
   end
 
   def clear_row(row)
