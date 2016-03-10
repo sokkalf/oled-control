@@ -18,6 +18,10 @@ oled.write('Hello, world!')
 ```
 ![hello world](../master/doc/helloworld.jpg)
 
+Should you be so unlucky as to mount the display upside-down, do not despair!
+Just `oled.flip` to turn things around again.
+
+
 #### Configure I2C bus and address
 The library defaults to I2C-bus `/dev/i2c-1` and I2C device address `0x3C`
 If you require another bus/address, you can use
