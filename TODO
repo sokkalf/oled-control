@@ -3,3 +3,5 @@
 * Select between character set ROM A, ROM B and ROM C on the SSD1311 controller
 * Get scroll working
 * Inverse video
+* More fallbacks to sane config values and failsafe mechanisms, avoid crashes if we can
+
