@@ -58,6 +58,10 @@ class OLED
     self.send_command(cmd)
   end
 
+  def raw_command(cmd)
+    self.send_raw_command(cmd)
+  end
+
   def flip
     @flipped = !@flipped
     if @flipped

@@ -69,6 +69,15 @@ static VALUE send_command(VALUE self, VALUE command) {
     return Qtrue;
 }
 
+static VALUE send_raw_command(VALUE self, VALUE command) {
+    uint8_t  cmd = NUM2UINT(command);
+    if(!send_raw_cmd(cmd)) {
+        rb_raise(rb_eRuntimeError, "error sending raw command");
+    }
+
+    return Qtrue;
+}
+
 static VALUE set_contrast(VALUE self, VALUE level) {
     uint8_t val = NUM2UINT(level);
     if(!set_contrast_level(val)) {
@@ -85,7 +94,8 @@ void Init_oled_control(void) {
     rb_define_method(klass, "set_contrast", set_contrast, 1);
     rb_define_method(klass, "enable", enable, 0);
     rb_define_method(klass, "disable", disable, 0);
-    rb_define_method(klass, "send_command", send_command, 1);
+    rb_define_protected_method(klass, "send_command", send_command, 1);
+    rb_define_protected_method(klass, "send_raw_command", send_raw_command, 1);
     rb_define_protected_method(klass, "write_string", write_string, 1);
     rb_define_protected_method(klass, "init", init, 2);
 }

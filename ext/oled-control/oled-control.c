@@ -74,6 +74,10 @@ int send_cmd(uint8_t cmd) {
            i2c_write_byte(CMD, 0x28);
 }
 
+int send_raw_cmd(uint8_t cmd) {
+    return i2c_write_byte(CMD, cmd);
+}
+
 int configure_display(const char* bus, uint8_t address) {
     i2c_bus = bus;
     oled_address = address;
