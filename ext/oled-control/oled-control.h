@@ -29,6 +29,7 @@ int clear_display();
 int set_contrast_level(uint8_t level);
 int display_enable();
 int display_disable();
+int send_cmd(uint8_t cmd);
 int configure_display(const char* bus, uint8_t address);
 int init_display();
 

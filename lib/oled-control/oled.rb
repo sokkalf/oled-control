@@ -1,7 +1,12 @@
 require 'oled-control/oled_control'
 
 class OLED
-  def initialize(i2c_bus = '/dev/i2c-1', i2c_address = 0x3c)
+  NORMAL=0x06
+  FLIPPED=0x05
+
+  def initialize(i2c_bus = '/dev/i2c-1', i2c_address = 0x3c, flipped = false)
+    @flipped = flipped
+
     # the OLED display defines its own weird character set
     @character_conversion = {
         0xE5 => 0xAF, # å
@@ -47,6 +52,19 @@ class OLED
   def clear_row(row)
     set_cursor(0, row)
     write(" "*20)
+  end
+
+  def command(cmd)
+    self.send_command(cmd)
+  end
+
+  def flip
+    @flipped = !@flipped
+    if @flipped
+      command(NORMAL)
+    else
+      command(FLIPPED)
+    end
   end
 
   def write(str)

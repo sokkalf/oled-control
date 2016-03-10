@@ -19,7 +19,7 @@ int i2c_write_byte(uint8_t reg, uint8_t data) {
 }
 
 int i2c_write_bytes(uint8_t reg, const char* data) {
-    int len = sizeof(uint8_t) + strlen(data);
+    size_t len = sizeof(uint8_t) + strlen(data);
     // allocate room for reg + data + trailing null character:
     char *buf = calloc(1, len+1);
     memcpy(&buf[0], &reg, 1);
@@ -68,6 +68,12 @@ int display_disable() {
     return i2c_write_byte(CMD, 0x08);
 }
 
+int send_cmd(uint8_t cmd) {
+    return i2c_write_byte(CMD, 0x2A) &&
+           i2c_write_byte(CMD, cmd) &&
+           i2c_write_byte(CMD, 0x28);
+}
+
 int configure_display(const char* bus, uint8_t address) {
     i2c_bus = bus;
     oled_address = address;
@@ -114,7 +120,7 @@ int init_display() {
     i2c_write_byte(CMD, 0x78) &&
     i2c_write_byte(CMD, 0x28) &&
     i2c_write_byte(CMD, 0x2a) &&
-    i2c_write_byte(CMD, 0x06) &&
+    i2c_write_byte(CMD, 0x06) && // entry mode (move cursor right, don’t shift display)
     i2c_write_byte(CMD, 0x28) &&
     i2c_write_byte(CMD, 0x01) &&
     i2c_write_byte(CMD, 0x80) &&
