@@ -91,6 +91,22 @@ int configure_display(const char* bus, uint8_t address) {
     return configured;
 }
 
+int create_custom_character(uint8_t pos, uint8_t map[]) {
+    pos &= 0x7;
+    if(!i2c_write_byte(CMD, 0x40 | (pos << 3)))
+        return FALSE;
+
+    usleep(30);
+    int result;
+    for (int i=0; i<8; i++) {
+        result = i2c_write_byte(DATA, map[i] >> 1);
+        if(!result)
+            break;
+        usleep(40);
+    }
+    return result;
+}
+
 int init_display(uint8_t orientation) {
     if(!configured)
         return FALSE;
