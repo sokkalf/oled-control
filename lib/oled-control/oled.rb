@@ -83,7 +83,7 @@ class OLED
   end
 
   def raw_write(str)
-    self.write_string(str);
+    self.write_string(str, str.size);
   end
 
   def write(str)
@@ -93,6 +93,7 @@ class OLED
     iso_string = str.encode('iso-8859-1')
     encoded_string = []
     iso_string.each_byte{|b| encoded_string << (@character_conversion[b.ord].nil? ? b.ord : @character_conversion[b.ord]) }
-    self.write_string(encoded_string.pack("c*"))
+    result = encoded_string.pack("c*")
+    self.write_string(result, result.size)
   end
 end

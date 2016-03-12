@@ -24,6 +24,7 @@
 
 int i2c_write_byte(uint8_t reg, uint8_t data);
 int i2c_write_bytes(uint8_t reg, const char* data);
+int i2c_write_n_bytes(uint8_t reg, const char* data, size_t length);
 int set_cursor_position(uint8_t col, uint8_t row);
 int clear_display();
 int set_contrast_level(uint8_t level);
