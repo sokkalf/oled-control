@@ -36,9 +36,9 @@ To utilize the various supported characters (I use the ROM A set on the SSD1311)
 See the `@character_conversion` variable in [this file](../master/lib/oled-control/oled.rb) and the [SSD1311 datasheet](http://www.midascomponents.co.uk/pdf/ssd1311.pdf) for reference.
 
 ### Custom characters
-It is possible to create custom characters numbered from 1 to 7. Example:
+It is possible to create eight custom characters numbered from 0 to 7. Example:
 ```ruby
-oled.create_character(1, [0b11000,
+oled.create_character(0, [0b11000,
                           0b11100,
                           0b11110,
                           0b11111,
@@ -47,7 +47,7 @@ oled.create_character(1, [0b11000,
                           0b11000,
                           0b00000])
                              
-oled.write("My custom char: \x01")
+oled.write("My custom char: \x00")
 ```
 
 ## Testing without ruby

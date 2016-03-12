@@ -16,9 +16,10 @@ static VALUE set_cursor(VALUE self, VALUE col, VALUE row) {
     return Qtrue;
 }
 
-static VALUE write_string(VALUE self, VALUE str) {
+static VALUE write_string(VALUE self, VALUE str, VALUE len) {
     const char *s = RSTRING_PTR(str);
-    if(!i2c_write_bytes(DATA, s))
+    size_t length = NUM2SIZET(len);
+    if(!i2c_write_n_bytes(DATA, s, length))
         rb_raise(rb_eRuntimeError, "unable to write string to display");
 
     return Qtrue;
@@ -119,6 +120,6 @@ void Init_oled_control(void) {
     rb_define_method(klass, "create_character", create_character, 2);
     rb_define_protected_method(klass, "send_command", send_command, 1);
     rb_define_protected_method(klass, "send_raw_command", send_raw_command, 1);
-    rb_define_protected_method(klass, "write_string", write_string, 1);
+    rb_define_protected_method(klass, "write_string", write_string, 2);
     rb_define_protected_method(klass, "init", init, 3);
 }
