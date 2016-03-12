@@ -76,6 +76,10 @@ class OLED
     end
   end
 
+  def raw_write(str)
+    self.write_string(str);
+  end
+
   def write(str)
     unless str.is_a?(String)
       str = str.to_s
