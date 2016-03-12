@@ -31,6 +31,7 @@ int display_enable();
 int display_disable();
 int send_cmd(uint8_t cmd);
 int send_raw_cmd(uint8_t cmd);
+int create_custom_character(uint8_t pos, uint8_t map[]);
 int configure_display(const char* bus, uint8_t address);
 int init_display(uint8_t orientation);
 
