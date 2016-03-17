@@ -52,6 +52,7 @@ class OLED
         0xE3 => 0x61, # ã -> a
         0xC3 => 0x41, # Ã -> A
         0xB4 => 0x27, # ´ -> '
+        0xFF => 0x79, # ÿ -> y
     }
     orientation = if @flipped
                     FLIPPED
